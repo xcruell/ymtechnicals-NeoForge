@@ -1,0 +1,28 @@
+{
+  "multipart": [
+    {
+      "when": { "facing": "up" },
+      "apply": { "model": "ymtechnicals:block/observers_eye" }
+    },
+    {
+      "when": { "facing": "down" },
+      "apply": { "model": "ymtechnicals:block/observers_eye", "x": 180 }
+    },
+    {
+      "when": { "facing": "north" },
+      "apply": { "model": "ymtechnicals:block/observers_eye", "x": 90 }
+    },
+    {
+      "when": { "facing": "south" },
+      "apply": { "model": "ymtechnicals:block/observers_eye", "x": 90, "y": 180 }
+    },
+    {
+      "when": { "facing": "west" },
+      "apply": { "model": "ymtechnicals:block/observers_eye", "x": 90, "y": 270 }
+    },
+    {
+      "when": { "facing": "east" },
+      "apply": { "model": "ymtechnicals:block/observers_eye", "x": 90, "y": 90 }
+    }
+  ]
+}

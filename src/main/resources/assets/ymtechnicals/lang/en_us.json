@@ -1,0 +1,16 @@
+{
+  "item.ymtechnicals.observers_eye": "Observers Eye",
+  "item.ymtechnicals.soundeffectz_3000": "Soundeffectz3000",
+
+  "block.ymtechnicals.observers_eye": "Observers Eye",
+  "block.ymtechnicals.soundeffectz_3000": "Soundeffectz3000",
+
+  "itemGroup.ymtechnicals": "Technicals? YesMenn!",
+
+  "screen.ymtechnicals.observers_eye": "Observers Eye Config",
+  "screen.ymtechnicals.soundeffectz_3000": "Soundeffectz3000",
+
+  "gui.ymtechnicals.play": "Play",
+  "gui.ymtechnicals.stop": "Stop",
+  "gui.ymtechnicals.close": "Close"
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "ymtechnicals:block/soundeffectz_3000"
+    },
+    "powered=true": {
+      "model": "ymtechnicals:block/soundeffectz_3000_powered"
+    }
+  }
+}

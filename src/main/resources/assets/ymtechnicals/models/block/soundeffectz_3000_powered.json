@@ -1,0 +1,6 @@
+{
+  "parent": "ymtechnicals:block/soundeffectz_3000",
+  "textures": {
+    "up": "minecraft:block/redstone_lamp_on"
+  }
+}
