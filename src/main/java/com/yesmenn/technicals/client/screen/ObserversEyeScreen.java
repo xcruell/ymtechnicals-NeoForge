@@ -164,13 +164,13 @@ public class ObserversEyeScreen extends Screen {
             playerIndex++;
         }
 
-        addRenderableWidget(Button.builder(Component.translatable("gui.yesmenn.save"), button -> {
+        addRenderableWidget(Button.builder(Component.translatable("gui.technicals.save"), button -> {
                     send();
                     onClose();
                 })
                 .bounds(left + PANEL_WIDTH - 142, top + PANEL_HEIGHT - 26, 64, 20)
                 .build());
-        addRenderableWidget(Button.builder(Component.translatable("gui.yesmenn.close"), button -> onClose())
+        addRenderableWidget(Button.builder(Component.translatable("gui.technicals.close"), button -> onClose())
                 .bounds(left + PANEL_WIDTH - 72, top + PANEL_HEIGHT - 26, 54, 20)
                 .build());
     }

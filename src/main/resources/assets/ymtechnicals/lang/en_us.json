@@ -12,5 +12,9 @@
 
   "gui.ymtechnicals.play": "Play",
   "gui.ymtechnicals.stop": "Stop",
-  "gui.ymtechnicals.close": "Close"
+  "gui.ymtechnicals.close": "Close",
+
+  "gui.technicals.save": "Save",
+  "gui.technicals.close": "Close"
+
 }

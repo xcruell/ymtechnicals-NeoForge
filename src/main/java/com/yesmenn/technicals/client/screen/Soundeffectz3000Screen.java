@@ -13,6 +13,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
+import net.minecraft.client.gui.components.AbstractWidget;
+import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Locale;
@@ -42,6 +44,7 @@ public class Soundeffectz3000Screen extends Screen {
     private EditBox volumeBox;
     private EditBox pitchBox;
     private EditBox rangeBox;
+    private final List<AbstractWidget> soundListWidgets = new ArrayList<>();
 
     public Soundeffectz3000Screen(OpenSoundeffectz3000ScreenPayload payload) {
         super(Component.translatable("screen.ymtechnicals.soundeffectz_3000"));
@@ -75,10 +78,10 @@ public class Soundeffectz3000Screen extends Screen {
             }
             scrollOffset = 0;
             refreshFilter(value);
-//            rebuildWidgets();
-//            searchBox.setFocused(true);
-//            searchBox.setCursorPosition(search.length());
+            rebuildSoundList(left, top, listWidth);
+
         });
+
         addRenderableWidget(searchBox);
 
         addRenderableWidget(Button.builder(Component.literal(namespaceLabel()), button -> {
@@ -92,56 +95,7 @@ public class Soundeffectz3000Screen extends Screen {
                 .bounds(left + 8, top + 56, listWidth - 16, 20)
                 .build());
 
-        if (category == null && search.isBlank()) {
-            Category[] categories = Category.values();
-            int categoryWidth = (listWidth - 22) / 2;
-            for (int i = 0; i < categories.length; i++) {
-                Category nextCategory = categories[i];
-                int x = left + 8 + i % 2 * (categoryWidth + 6);
-                int y = top + 84 + i / 2 * 36;
-                int count = Soundeffectz3000SoundLibrary.count(namespace, nextCategory);
-                addRenderableWidget(Button.builder(
-                                Component.literal(nextCategory.label() + " (" + count + ")"),
-                                button -> {
-                                    category = nextCategory;
-                                    scrollOffset = 0;
-                                    refreshFilter("");
-                                    rebuildWidgets();
-                                })
-                        .bounds(x, y, categoryWidth, 28)
-                        .build());
-            }
-        } else {
-            int listTop = top + 80;
-            int visibleRows = VISIBLE_ROWS;
-            if (category != null && search.isBlank()) {
-                addRenderableWidget(Button.builder(
-                                Component.literal("< Categories  /  " + category.label()),
-                                button -> {
-                                    category = null;
-                                    scrollOffset = 0;
-                                    refreshFilter("");
-                                    rebuildWidgets();
-                                })
-                        .bounds(left + 8, listTop, listWidth - 16, 20)
-                        .build());
-                listTop += 22;
-                visibleRows--;
-            }
-            int shown = Math.min(visibleRows, Math.max(0, filteredSounds.size() - scrollOffset));
-            for (int i = 0; i < shown; i++) {
-                ResourceLocation id = filteredSounds.get(scrollOffset + i);
-                boolean selected = id.equals(selectedSound);
-                addRenderableWidget(Button.builder(
-                                Component.literal((selected ? "> " : "") + trim(id.toString(), 39)),
-                                button -> {
-                                    selectedSound = id;
-                                    rebuildWidgets();
-                                })
-                        .bounds(left + 8, listTop + i * 21, listWidth - 16, 20)
-                        .build());
-            }
-        }
+        rebuildSoundList(left, top, listWidth);
 
         volumeBox = numericBox(right + 95, top + 62, 62, volume, 3, "Volume");
         pitchBox = numericBox(right + 95, top + 96, 62, pitch, 3, "Pitch");
@@ -260,6 +214,104 @@ public class Soundeffectz3000Screen extends Screen {
     private void addStepButtons(int x, int y, Runnable decrease, Runnable increase) {
         addRenderableWidget(Button.builder(Component.literal("-"), button -> decrease.run()).bounds(x, y, 20, 20).build());
         addRenderableWidget(Button.builder(Component.literal("+"), button -> increase.run()).bounds(x + 24, y, 20, 20).build());
+    }
+
+    private void rebuildSoundList(int left, int top, int listWidth) {
+        for (AbstractWidget widget : soundListWidgets) {
+            removeWidget(widget);
+        }
+
+        soundListWidgets.clear();
+
+        if (category == null && search.isBlank()) {
+            Category[] categories = Category.values();
+
+            int categoryWidth = (listWidth - 22) / 2;
+
+            for (int i = 0; i < categories.length; i++) {
+                Category nextCategory = categories[i];
+
+                int x = left + 8 + i % 2 * (categoryWidth + 6);
+                int y = top + 84 + i / 2 * 36;
+
+                int count = Soundeffectz3000SoundLibrary.count(
+                        namespace,
+                        nextCategory
+                );
+
+                Button button = Button.builder(
+                                Component.literal(
+                                        nextCategory.label() + " (" + count + ")"
+                                ),
+                                clickedButton -> {
+                                    category = nextCategory;
+                                    scrollOffset = 0;
+                                    refreshFilter("");
+
+                                    rebuildSoundList(left, top, listWidth);
+                                })
+                        .bounds(x, y, categoryWidth, 28)
+                        .build();
+
+                addRenderableWidget(button);
+                soundListWidgets.add(button);
+            }
+
+        } else {
+            int listTop = top + 80;
+            int visibleRows = VISIBLE_ROWS;
+
+            if (category != null && search.isBlank()) {
+                Button backButton = Button.builder(
+                                Component.literal(
+                                        "< Categories  /  " + category.label()
+                                ),
+                                clickedButton -> {
+                                    category = null;
+                                    scrollOffset = 0;
+                                    refreshFilter("");
+
+                                    rebuildSoundList(left, top, listWidth);
+                                })
+                        .bounds(left + 8, listTop, listWidth - 16, 20)
+                        .build();
+
+                addRenderableWidget(backButton);
+                soundListWidgets.add(backButton);
+
+                listTop += 22;
+                visibleRows--;
+            }
+
+            int shown = Math.min(
+                    visibleRows,
+                    Math.max(0, filteredSounds.size() - scrollOffset)
+            );
+
+            for (int i = 0; i < shown; i++) {
+                ResourceLocation id = filteredSounds.get(scrollOffset + i);
+                boolean selected = id.equals(selectedSound);
+
+                Button button = Button.builder(
+                                Component.literal(
+                                        (selected ? "> " : "") + trim(id.toString(), 39)
+                                ),
+                                clickedButton -> {
+                                    selectedSound = id;
+                                    rebuildSoundList(left, top, listWidth);
+                                })
+                        .bounds(
+                                left + 8,
+                                listTop + i * 21,
+                                listWidth - 16,
+                                20
+                        )
+                        .build();
+
+                addRenderableWidget(button);
+                soundListWidgets.add(button);
+            }
+        }
     }
 
     private void refreshFilter(String search) {

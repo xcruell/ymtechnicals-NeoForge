@@ -23,8 +23,8 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 public class YMTechnicalsClient {
 
     public YMTechnicalsClient(ModContainer modContainer) {
-//        NeoForge.EVENT_BUS.addListener(Soundeffectz3000ClientHooks::onClientTick);
-//        NeoForge.EVENT_BUS.addListener(Soundeffectz3000ClientHooks::onClientLoggingOut);
+        NeoForge.EVENT_BUS.addListener(Soundeffectz3000ClientHooks::onClientTick);
+        NeoForge.EVENT_BUS.addListener(Soundeffectz3000ClientHooks::onClientLoggingOut);
 
         modContainer.registerExtensionPoint(
                 IConfigScreenFactory.class,
