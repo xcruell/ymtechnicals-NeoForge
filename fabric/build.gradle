@@ -1,0 +1,53 @@
+plugins {
+    id 'dev.architectury.loom'
+}
+
+base {
+    archivesName = archives_base_name + '-fabric'
+}
+
+loom {
+    accessWidenerPath = project(':common').file('src/main/resources/ymtechnicals.accesswidener')
+    mixin {
+        useLegacyMixinAp = true
+        defaultRefmapName = 'ymtechnicals-refmap.json'
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${parchment_minecraft_version}:${parchment_mappings_version}@zip")
+    }
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+    // YM Duct Tape (shared creative tab, YM GUI kit), required mod; the jar is kept in libs/
+    modCompileOnly fileTree('../libs') { include 'ymducttape-v*-fabric-*.jar'; exclude '*-dev.jar' }
+    modLocalRuntime fileTree('../libs') { include 'ymducttape-v*-fabric-*.jar'; exclude '*-dev.jar' }
+    // WTHIT API (optional mod)
+    compileOnly files('../libs/wthit-1.21.1-neo-12.10.2.jar')
+}
+
+// The common sources are compiled here (instead of depending on the common project) so that the mixin annotation
+// processor writes the refmap for the common mixins too, and everything ends up in one mod.
+sourceSets.main.java.srcDir project(':common').sourceSets.main.java.srcDirs
+
+tasks.named('processResources', ProcessResources).configure {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') {
+        expand 'version': project.version
+    }
+    from(rootProject.file('LICENSE')) { into 'META-INF' }
+    from project(':common').sourceSets.main.resources
+}
+
+// Jar names: <name>-v<version>-<loader>-<minecraft version>.jar
+remapJar {
+    archiveFileName = "${archives_base_name}-v${project.version}-fabric-${minecraft_version}.jar"
+}
+
+jar {
+    archiveFileName = "${archives_base_name}-v${project.version}-fabric-${minecraft_version}-dev.jar"
+}

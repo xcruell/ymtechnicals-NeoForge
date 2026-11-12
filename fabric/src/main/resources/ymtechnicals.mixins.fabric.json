@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.yesmenn.technicals.mixin.fabric",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "ymtechnicals-refmap.json",
+  "client": [
+    "MixinSoundEngineFabric"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

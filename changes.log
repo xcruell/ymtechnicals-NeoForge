@@ -1,0 +1,54 @@
+0.2.6 - Download songs again in the current quality, add audio files from your computer.
+- Right click on a song: choose it, download it again in the current quality (blasters playing it switch to the new file at the same position) or delete it
+- Songs remember the link they came from; songs taken over from the YesMenn! mod get their YouTube link back, songs added with 0.2.1 to 0.2.5 have none and must be added again by link for the better quality
+- New "File..." button and drag & drop onto the blaster screen: add mp3, wav, ogg, flac, m4a, ... files from your computer (same permission, storage quota and daily limit as links; max size and on/off in the server config, by default on in single player and LAN worlds and off on dedicated servers)
+- The owner of a single player or LAN world may always add and delete songs, also without cheats
+- The setup dialog now says that yt-dlp and ffmpeg already installed on the system (PATH) or in the tools folder are used without downloading anything
+- WTHIT shows code, range and volume of blasters and speakers only while Shift is held
+- Queue: while a download or upload runs, more links and files can be added; they are done one after the other (up to 20 per player), the status line shows how many are waiting
+- Several files can be chosen in the file dialog or dropped onto the screen at once
+- A song chosen on a blaster nearby is fetched and prepared in advance, so newly added songs start right at the beginning instead of a few seconds in
+- Added files and direct audio links take title and artist from the file's own tags (ID3 etc.), the file name is only used when there is no title
+- Speakers and blasters that start again when you come back (e.g. short range ones) now join exactly where the others of their channel are playing, instead of drifting slightly out of sync
+
+0.2.5 - Better song quality, a setup dialog for yt-dlp/ffmpeg and download limits.
+- Songs are now downloaded in 48 kHz and higher quality (Ogg Vorbis quality 6); songs added before keep their old quality until they are downloaded again
+- First start: a dialog in the main menu asks whether yt-dlp and ffmpeg may be downloaded (with what they are and what they are for) and whether yt-dlp is kept up to date; switched off, it shows where to put the programs yourself (the PATH works too). Nothing is downloaded without it; dedicated servers set it in config/ymtechnicals-tools.json
+- yt-dlp can update itself at every game or server start (only the copy YM Technicals downloaded)
+- Adding songs needs operator rights by default; permission mods can grant ymtechnicals.creeperblaster.download, .delete_any and .operator_limits (NeoForge permission API, Fabric with fabric-permissions-api)
+- Players may delete their own songs; deleting other players' songs needs delete_any
+- Only YouTube links go through yt-dlp (hosts adjustable in the config); other links must point straight at an audio file (mp3, wav, ogg, flac, ...)
+- Library space per player: 1 GB, operators 50 GB, plus an optional daily download limit (all in config/ymtechnicals-server.json); the blaster screen shows your usage
+
+0.2.4 - Smoother CreeperSpeaker3000 sound and fixes.
+- Several speakers stay in sync with each other while you walk around and turn; a speaker that comes into hearing range starts exactly where the others are
+- Speakers fade smoothly with distance (full volume close by, soft fade to the edge of their range) instead of cutting out, and fade in and out instead of starting or stopping hard
+- Standing between speakers: their volume is balanced, so none of them suddenly vanishes or jumps louder when you move
+- Up to 4 sources per blaster (6 in total) play at the same time, the loudest ones first
+- Soundeffectz3000: closing its screen no longer restarts a running loop when nothing was changed
+- Observers Eye: player filters cost much less server time
+- Download links to localhost or private network addresses are refused
+
+0.2.3 - New screens for the Observers Eye and the Soundeffectz3000.
+- Observers Eye: new screen in the YM style with sliders for zone size and offset (reset per value), shape, output and filter; the world stays visible and the window fades out while dragging, so the zone preview can be watched while it changes
+- Observers Eye: online players are added with one click, listed players are removed with the bin icon
+- Soundeffectz3000: new screen with search, mod and category filter in one list; right click on a sound plays it only for you
+- Soundeffectz3000: volume, pitch and range are sliders with a reset per value, loop and redstone are switches
+
+0.2.2 - Now also for Fabric.
+- Fabric version next to NeoForge (Minecraft 1.21.1), with all blocks, screens and the WTHIT display
+- The CreeperBlaster3000 server settings are now in config/ymtechnicals-server.json (same file on both loaders)
+
+0.2.1 - CreeperBlaster3000 and CreeperSpeaker3000 moved over from YesMenn!, rebuilt to run smoothly on servers.
+- Added the CreeperBlaster3000: plays songs from a shared server library, added by YouTube or audio file link (yt-dlp and ffmpeg are set up on the server automatically)
+- Added the CreeperSpeaker3000: plays what the blaster with the same three-color code plays, with its own range and volume; a second speaker used on it makes a full speaker
+- Added the code sheet: copies a blaster's code onto speakers
+- New screens in the YM style: player with seek bar, loop, volume, range and code on the left, searchable library with download field on the right
+- Songs are sent to each player only once and kept in a local cache; all players hear the same position in sync, also players that join later
+- Music plays through the "Jukebox/Note Blocks" volume, pauses with the game and shows subtitles and "Now playing"
+- Fixed the server crashes of the old version (speakers and blasters no longer load other chunks or touch unloaded blocks) and much less server load and network traffic
+- WTHIT shows the song with its position, the code, range and volume of blasters and speakers
+- Server config: downloads on/off, permission level for adding and deleting songs, longest song length, automatic tool installation and upload speed
+- Blasters, speakers, code sheets and songs from the YesMenn! mod are taken over
+- Renamed to YM Technicals
+- Fixed the crafting recipes of the Soundeffectz3000 and the Observers Eye (they did not load)

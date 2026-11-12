@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "ymtechnicals",
+  "version": "${version}",
+  "name": "YM Technicals",
+  "description": "Technical additions and gimmicks: CreeperBlaster3000 and CreeperSpeaker3000, Soundeffectz3000, Observers Eye.",
+  "authors": ["YesMenn!", "xcruell"],
+  "license": "YesMenn Custom License 1.0",
+  "icon": "icon.png",
+
+  "environment": "*",
+
+  "entrypoints": {
+    "main": [
+      "com.yesmenn.technicals.YMTechnicalsFabric"
+    ],
+    "client": [
+      "com.yesmenn.technicals.client.YMTechnicalsFabricClient"
+    ]
+  },
+
+  "accessWidener": "ymtechnicals.accesswidener",
+
+  "mixins": [
+    "ymtechnicals.mixins.json",
+    "ymtechnicals.mixins.fabric.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric-api": "*",
+    "minecraft": "1.21.1",
+    "ymducttape": ">=0.1.1"
+  },
+
+  "suggests": {
+    "wthit": "*"
+  }
+}

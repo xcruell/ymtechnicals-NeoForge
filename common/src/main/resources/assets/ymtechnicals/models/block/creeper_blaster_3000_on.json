@@ -1,0 +1,8 @@
+{
+  "parent": "ymtechnicals:block/creeper_blaster_3000",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "1": "ymtechnicals:block/creeperblaster3000",
+    "particle": "ymtechnicals:block/creeperblaster3000"
+  }
+}

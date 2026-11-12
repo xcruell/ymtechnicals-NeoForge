@@ -1,0 +1,11 @@
+{
+  "ymtechnicals:creeper": {
+    "entrypoints": {
+      "client": "com.yesmenn.technicals.creeper.compat.CreeperWthitPlugin"
+    },
+    "side": "client",
+    "required": [
+      "ymtechnicals"
+    ]
+  }
+}

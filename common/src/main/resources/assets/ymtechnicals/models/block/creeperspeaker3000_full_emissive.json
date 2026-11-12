@@ -1,0 +1,8 @@
+{
+  "parent": "ymtechnicals:block/creeperspeaker3000_full",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "1": "ymtechnicals:block/creeperspeaker3000_full_emissive",
+    "particle": "ymtechnicals:block/creeperspeaker3000_full"
+  }
+}

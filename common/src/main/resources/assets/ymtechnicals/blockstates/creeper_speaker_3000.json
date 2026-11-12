@@ -1,0 +1,102 @@
+{
+  "multipart": [
+    {
+      "when": { "facing": "north", "full": "false", "base": "false", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeper_speaker_3000" }
+    },
+    {
+      "when": { "facing": "east", "full": "false", "base": "false", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeper_speaker_3000", "y": 90 }
+    },
+    {
+      "when": { "facing": "south", "full": "false", "base": "false", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeper_speaker_3000", "y": 180 }
+    },
+    {
+      "when": { "facing": "west", "full": "false", "base": "false", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeper_speaker_3000", "y": 270 }
+    },
+    {
+      "when": { "facing": "north", "full": "false", "base": "false", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeper_speaker_3000", "x": 180, "y": 180 }
+    },
+    {
+      "when": { "facing": "east", "full": "false", "base": "false", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeper_speaker_3000", "x": 180, "y": 270 }
+    },
+    {
+      "when": { "facing": "south", "full": "false", "base": "false", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeper_speaker_3000", "x": 180, "y": 0 }
+    },
+    {
+      "when": { "facing": "west", "full": "false", "base": "false", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeper_speaker_3000", "x": 180, "y": 90 }
+    },
+
+    {
+      "when": { "facing": "north", "full": "false", "base": "true", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_base" }
+    },
+    {
+      "when": { "facing": "east", "full": "false", "base": "true", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_base", "y": 90 }
+    },
+    {
+      "when": { "facing": "south", "full": "false", "base": "true", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_base", "y": 180 }
+    },
+    {
+      "when": { "facing": "west", "full": "false", "base": "true", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_base", "y": 270 }
+    },
+    {
+      "when": { "facing": "north", "full": "false", "base": "true", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_base", "x": 180, "y": 180 }
+    },
+    {
+      "when": { "facing": "east", "full": "false", "base": "true", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_base", "x": 180, "y": 270 }
+    },
+    {
+      "when": { "facing": "south", "full": "false", "base": "true", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_base", "x": 180, "y": 0 }
+    },
+    {
+      "when": { "facing": "west", "full": "false", "base": "true", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_base", "x": 180, "y": 90 }
+    },
+
+    {
+      "when": { "facing": "north", "full": "true", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_full" }
+    },
+    {
+      "when": { "facing": "east", "full": "true", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_full", "y": 90 }
+    },
+    {
+      "when": { "facing": "south", "full": "true", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_full", "y": 180 }
+    },
+    {
+      "when": { "facing": "west", "full": "true", "upside_down": "false" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_full", "y": 270 }
+    },
+    {
+      "when": { "facing": "north", "full": "true", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_full", "x": 180, "y": 180 }
+    },
+    {
+      "when": { "facing": "east", "full": "true", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_full", "x": 180, "y": 270 }
+    },
+    {
+      "when": { "facing": "south", "full": "true", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_full", "x": 180, "y": 0 }
+    },
+    {
+      "when": { "facing": "west", "full": "true", "upside_down": "true" },
+      "apply": { "model": "ymtechnicals:block/creeperspeaker3000_full", "x": 180, "y": 90 }
+    }
+  ]
+}

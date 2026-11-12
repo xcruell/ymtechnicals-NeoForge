@@ -1,0 +1,11 @@
+{
+  "creeper_blaster_3000.music": {
+    "subtitle": "subtitles.ymtechnicals.creeper_blaster_3000.music",
+    "sounds": [
+      {
+        "name": "minecraft:records/cat",
+        "stream": true
+      }
+    ]
+  }
+}

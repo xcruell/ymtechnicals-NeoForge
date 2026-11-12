@@ -1,0 +1,97 @@
+plugins {
+    id 'dev.architectury.loom'
+}
+
+base {
+    archivesName = archives_base_name + '-neoforge'
+}
+
+loom {
+    mixin {
+        useLegacyMixinAp = true
+        defaultRefmapName = 'ymtechnicals-refmap.json'
+    }
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+        }
+        configureEach {
+            property 'forge.logging.markers', ''
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    neoForge "net.neoforged:neoforge:${neo_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${parchment_minecraft_version}:${parchment_mappings_version}@zip")
+    }
+
+    // YM Duct Tape (shared creative tab, YM GUI kit), required mod; the jar is kept in libs/ (copied to run/mods)
+    modCompileOnly fileTree('../libs') { include 'ymducttape-v*-neoforge-*.jar'; exclude '*-dev.jar' }
+    // WTHIT (optional): compiled against, in dev runs through run/mods
+    compileOnly files('../libs/wthit-1.21.1-neo-12.10.2.jar')
+}
+
+def generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
+    def replaceProperties = [
+            minecraft_version      : minecraft_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            loader_version_range   : loader_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from 'src/main/templates'
+    into 'build/generated/sources/modMetadata'
+}
+
+// The common sources are compiled here: FML only loads classes from the mod's own module, so a separate common JAR
+// would be invisible to it.
+sourceSets.main.java.srcDir project(':common').sourceSets.main.java.srcDirs
+sourceSets.main.resources.srcDir generateModMetadata
+
+// Required and optional mods for dev runs: copied unchanged into run/mods.
+tasks.register('syncRunMods') {
+    doLast {
+        def modsDir = project.file('run/mods')
+        modsDir.mkdirs()
+        modsDir.listFiles { f -> f.name.endsWith('.jar') }?.each { it.delete() }
+        project.copy {
+            from(rootProject.fileTree('libs')) {
+                include 'ymducttape-v*-neoforge-*.jar', 'wthit-*-neo-*.jar', 'badpackets-neo-*.jar'
+                exclude '*-dev.jar'
+            }
+            into modsDir
+        }
+    }
+}
+
+tasks.matching { it.name in ['runClient', 'runServer'] }.configureEach {
+    dependsOn 'syncRunMods'
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    from project(':common').sourceSets.main.resources
+    from(rootProject.file('LICENSE')) {
+        into 'META-INF'
+    }
+}
+
+// Jar names: <name>-v<version>-<loader>-<minecraft version>.jar
+remapJar {
+    archiveFileName = "${archives_base_name}-v${project.version}-neoforge-${minecraft_version}.jar"
+}
+
+jar {
+    archiveFileName = "${archives_base_name}-v${project.version}-neoforge-${minecraft_version}-dev.jar"
+}
